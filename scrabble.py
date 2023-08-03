@@ -5,7 +5,13 @@ letter_to_points[" "] = 0
 print(letter_to_points)
 
 def score_word(word):
+  word_characters = [*word]
   point_total = 0
-  for letter in word:
-    point_total += letter_to_points[letter]
-    return point_total
+  for letter in word_characters:
+    point_total += letter_to_points.get(letter, 0)
+  return point_total
+
+brownie_points = score_word("BROWNIE")
+print(brownie_points)
+story_points = score_word("STORY")
+print(story_points)
