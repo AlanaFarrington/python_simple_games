@@ -29,7 +29,7 @@ def user_choice():
         case "scissors" | "Scissors":
             print("You chose scissors.")
             user_choice = int(3)
-        case _: 
+        case _:
             print("Invalid input error")
     return int(user_choice)
 
