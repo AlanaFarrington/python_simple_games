@@ -13,25 +13,25 @@ player_score = 0
 computer_choice = random.randint(1,3)
 
 #use randint to generate play for computer
-def computer_choice():
-    return random.randint(1,3)
+# def computer_choice():
+#     return random.randint(1,3)
 
 #use input to ask player for their play
 def user_choice():
-    user_choice = input("Make your choice. Rock, paper or scissors?")
-    match user_choice:
+    player_choice = input("Make your choice. Rock, paper or scissors?")
+    match player_choice:
         case "rock" | "Rock":
             print("You chose rock.")
-            user_choice = int(1)
+            player_choice = 1
         case "paper" | "Paper":
             print("You chose paper.")
-            user_choice = int(2)
+            player_choice = 2
         case "scissors" | "Scissors":
             print("You chose scissors.")
-            user_choice = int(3)
+            player_choice = 3
         case _:
             print("Invalid input error")
-    return int(user_choice)
+    return player_choice
 
 #compare player choice and computer choice using match case statement 
 def run_game(user_choice, computer_choice):
@@ -50,12 +50,11 @@ def run_game(user_choice, computer_choice):
 #game loop runs 3 times and increments rounds played by 1
 while rounds_played < 3:
     rounds_played += 1
-    print(rounds_played)
+    #print(rounds_played)
     player_choice_list.append("won")
     player_score += 1
-    comp_choice = computer_choice()
     player_choice = user_choice()
-    run_game(comp_choice,player_choice)
+    run_game(player_choice, computer_choice)
 
 print("Game over!")
-print(score_list)
+#print(score_list)
