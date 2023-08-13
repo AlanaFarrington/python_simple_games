@@ -38,7 +38,7 @@ def print_choice_message(player, computer):
     print("The computer chose " + game_choices[computer])
 
 # print round outcome
-def print_outcome(outcome):    
+def print_outcome(outcome, scores):    
     match outcome:
         case 1:
             print("You drew this round.\n")
@@ -48,6 +48,7 @@ def print_outcome(outcome):
             print("You lost this round.\n")
         case _:
             print("invalid outcome error\n") 
+    print("The current scores are - player: {} and computer: {} \n".format(scores["player"], scores["computer"]))
 
 # adding stats
 def update_stats(outcome, stats):
@@ -82,7 +83,7 @@ def run_game(winning_total):
         # take and validate player input
         player_input_str = get_player_input()
         if not validate_player_input(player_input_str):
-            print("invalid response")
+            print("invalid input")
             continue
         
         # begin round incrementing
@@ -102,7 +103,7 @@ def run_game(winning_total):
         # prints messages for player
         print("Round " + str(stats["rounds"]))
         print_choice_message(player_choice, computer_choice)
-        print_outcome(outcome)
+        print_outcome(outcome, scores)
 
     print_stats(scores, stats)
 
