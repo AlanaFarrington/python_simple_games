@@ -20,7 +20,7 @@ def get_outcome(player_choice, computer_choice):
         return 2
     return 3
 
-def update_scores(scores, outcome):
+def update_scores(outcome, scores):
     if outcome == 2:
         scores["player"] +=1
     elif outcome == 3:
@@ -66,13 +66,12 @@ def round_counter(stats):
     stats["rounds"] += 1
 
 # print final stats
-def print_stats(stats, scores, rounds_played):
+def print_stats(scores, stats):
     print("GAME OVER!\n")
-    print("This game lasted " + str(stats["rounds"]) + " rounds.\n")
     print("You scored " + str(scores["player"]) + " and the computer scored " + str(scores["computer"]) + ".\n")
-    print("Your stats were: " + str(stats["player"]))
-    print("The computer's stats were: " + str(stats["computer"]))
-    print(stats["computer"])
+    print("This game lasted " + str(stats["rounds"]) + " rounds.\n")
+    print("Your stats were: \n" + str(stats["player"]))
+    print("The computer's stats were: \n" + str(stats["computer"]))
 
 # run game loop
 def run_game(winning_total):
@@ -80,12 +79,31 @@ def run_game(winning_total):
     stats = {"player": [], "computer": [], "rounds": 0}
 
     while is_game_complete(scores, winning_total):
+        # take and validate player input
         player_input_str = get_player_input()
         if not validate_player_input(player_input_str):
             print("invalid response")
             continue
-        update_scores(scores, 2)
-        print("running")
+        
+        # begin round incrementing
+        round_counter(stats)
+        
+        # take int player and computer choice
+        player_choice = convert_input_to_int(player_input_str)
+        computer_choice = get_computer_choice()
+
+        # check outcome of round
+        outcome = get_outcome(player_choice, computer_choice)
+
+        # update scores and stats for this round
+        update_scores(outcome, scores)
+        update_stats(outcome, stats)
+
+        # prints messages for player
+        print("Round " + str(stats["rounds"]))
+        print_choice_message(player_choice, computer_choice)
+        print_outcome(outcome)
+
+    print_stats(scores, stats)
 
 run_game(3)
-print("Game over")
