@@ -16,14 +16,23 @@ player_2_letters = []
 # fill player tiles rack
 def fill_player_tiles(player_letters, remaining_letter_tiles):
   while len(player_letters) < 7:
-    select_random_tile = random.randint(0,99)
+    select_random_tile = random.randint(0,len(remaining_letter_tiles))
     print(select_random_tile)
     player_letters.append(remaining_letter_tiles[select_random_tile])
     # remove used letter from remaining_letter_tiles list
-    #remaining_letter_tiles.pop[select_random_tile]
+    del remaining_letter_tiles[select_random_tile]
     continue
   return player_letters
 
-player_1_tiles = fill_player_tiles(player_1_letters, remaining_letter_tiles)
-print(player_1_tiles)
+fill_player_tiles(player_1_letters, remaining_letter_tiles)
+print("Player 1's letter list is:")
+print(player_1_letters)
+print("The remining unused letter tiles are:")
 print(remaining_letter_tiles)
+print(len(remaining_letter_tiles))
+fill_player_tiles(player_2_letters, remaining_letter_tiles)
+print("Player 2's letter list is:")
+print(player_2_letters)
+print("The remining unused letter tiles are:")
+print(remaining_letter_tiles)
+print(len(remaining_letter_tiles))

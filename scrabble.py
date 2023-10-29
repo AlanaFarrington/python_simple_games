@@ -1,6 +1,5 @@
 # GAME RULES
 # Ax9, Bx2, Cx2, Dx4, Ex12, Fx2, Gx3, Hx2, Ix9, Jx1, Kx1, Lx4, Mx2, Nx6, Ox8, Px2, Qx1, Rx6, Sx4, Tx6, Ux4, Vx2, Wx2, Xx1, Yx2, Zx1, blankx2
-# board is 15 x 15 grid
 # each player gets given 7 random letter tiles from the 100 tiles
 # word must be minimum of 2 letters long
 # must run check that word guessed only uses letters that they have in their letter list
@@ -14,7 +13,9 @@
 # EXTRA CHALLENGES
 # make your letter_to_points dictionary able to handle lowercase inputs as well
 # check if inputted words are real using a dictionary scraper
-# plan out a board as a simple UI 
+# plan out a board as a simple UI - board is 15 x 15 grid
+
+import random
 
 # make dictionary of letter points
 letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", " "]
@@ -31,6 +32,17 @@ player_2_letters = []
 player_1_words = []
 player_2_words = []
 
+# fill player tiles rack
+def fill_player_tiles(player_letters, remaining_letter_tiles):
+  while len(player_letters) < 7:
+    select_random_tile = random.randint(0,len(remaining_letter_tiles))
+    print(select_random_tile)
+    player_letters.append(remaining_letter_tiles[select_random_tile])
+    # remove used letter from remaining_letter_tiles list
+    del remaining_letter_tiles[select_random_tile]
+    continue
+  return player_letters
+  
 #convert guessed word to score
 def score_word(word):
   word_characters = [*word]
