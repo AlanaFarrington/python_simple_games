@@ -10,8 +10,8 @@ remaining_letter_tiles = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B",
 # print(letter_points)
 
 #set players letter tiles and played words as empty lists
-player_1_letters = []
-player_2_letters = []
+player_1_letters = ["S", "A"]
+player_2_letters = ["B", "N", "P"]
 
 # fill player tiles rack
 def fill_player_tiles(player_letters, remaining_letter_tiles):
@@ -25,14 +25,14 @@ def fill_player_tiles(player_letters, remaining_letter_tiles):
   return player_letters
 
 fill_player_tiles(player_1_letters, remaining_letter_tiles)
-print("Player 1's letter list is:")
+print("Player 1, your letters are:")
 print(player_1_letters)
-print("The remining unused letter tiles are:")
-print(remaining_letter_tiles)
+#print("The remining unused letter tiles are:")
+#print(remaining_letter_tiles)
 print(len(remaining_letter_tiles))
 fill_player_tiles(player_2_letters, remaining_letter_tiles)
 print("Player 2's letter list is:")
 print(player_2_letters)
-print("The remining unused letter tiles are:")
-print(remaining_letter_tiles)
+#print("The remining unused letter tiles are:")
+#print(remaining_letter_tiles)
 print(len(remaining_letter_tiles))
