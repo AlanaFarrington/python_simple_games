@@ -24,15 +24,39 @@ def fill_player_tiles(player_letters, remaining_letter_tiles):
     continue
   return player_letters
 
+# print player letter list
+def print_letter_list(player, player_letters):
+   print(player + ", your letters are:")
+   print(player_letters)
+
+# get player input
+def get_player_input():
+    player_input = input("What is your word to play? ")
+    return player_input.upper()
+
+# validate player input - checked against their available letter tiles
+def validate_word(player_letters, word):
+   word_characters = [*word]
+   #compare word characters with player letters
+   check_letters = all(item in player_letters for item in word_characters)
+   return check_letters
+
+#convert guessed word to score
+# def score_word(word):
+#   word_characters = [*word]
+#   point_total = 0
+#   for letter in word_characters:
+#     point_total += letter_points.get(letter, 0)
+#   if len(word_characters) == 7:
+#      point_total += 50
+#   return point_total
+
+# test calls of functions
 fill_player_tiles(player_1_letters, remaining_letter_tiles)
-print("Player 1, your letters are:")
-print(player_1_letters)
-#print("The remining unused letter tiles are:")
-#print(remaining_letter_tiles)
+print_letter_list("Player 1", player_1_letters)
 print(len(remaining_letter_tiles))
-fill_player_tiles(player_2_letters, remaining_letter_tiles)
-print("Player 2's letter list is:")
-print(player_2_letters)
-#print("The remining unused letter tiles are:")
-#print(remaining_letter_tiles)
-print(len(remaining_letter_tiles))
+
+player_1_word = get_player_input()
+print(player_1_word)
+is_valid = validate_word(player_1_letters, player_1_word)
+print(is_valid)
