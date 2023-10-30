@@ -1,6 +1,5 @@
 # GAME RULES
 # Ax9, Bx2, Cx2, Dx4, Ex12, Fx2, Gx3, Hx2, Ix9, Jx1, Kx1, Lx4, Mx2, Nx6, Ox8, Px2, Qx1, Rx6, Sx4, Tx6, Ux4, Vx2, Wx2, Xx1, Yx2, Zx1, blankx2
-# each player gets given 7 random letter tiles from the 100 tiles
 # word must be minimum of 2 letters long
 # must run check that word guessed only uses letters that they have in their letter list
 # check word against dictionary (dictionary module?)
@@ -32,7 +31,8 @@ player_2_letters = []
 player_1_words = []
 player_2_words = []
 
-# fill player tiles rack
+# fill player tiles rack with 7 random letter tiles from the 100 tiles which are then removed from the remaining tiles list
+# TESTED
 def fill_player_tiles(player_letters, remaining_letter_tiles):
   while len(player_letters) < 7:
     select_random_tile = random.randint(0,len(remaining_letter_tiles))
@@ -42,21 +42,53 @@ def fill_player_tiles(player_letters, remaining_letter_tiles):
     del remaining_letter_tiles[select_random_tile]
     continue
   return player_letters
-  
+
+# print player letter list
+# TESTED
+def print_letter_list(player, player_letters):
+   print(player + ", your letters are:\n")
+   print(player_letters)
+
+# get player input
+# TESTED
+def get_player_input():
+    player_input = input("What is your word to play? ")
+    return player_input.upper()
+
+# validate player input - checked against their available letter tiles
+def validate_word(player_letters, word):
+   word_characters = [*word]
+   #compare word characters with player letters
+   check_letters = all(item in player_letters for item in word_characters)
+   return check_letters
+
+# add their played word to player word list
+def update_player_word_list(word):
+  if player == "player_1":
+   player_1_words.append(word)
+  if player == "player_2":
+   player_2_words.append(word)
+
+# validate real word (find dictionary module/scraper)
+def validate_word(word):
+  # check against dictionary
+  return
+
 #convert guessed word to score
+# TESTED
 def score_word(word):
   word_characters = [*word]
   point_total = 0
   for letter in word_characters:
     point_total += letter_points.get(letter, 0)
+  if len(word_characters) == 7:
+     point_total += 50
   return point_total
 
-# create function that would take in a player and a word, and add that word to the list of words they’ve played
-def play_word(player, word):
-  if player == "player_1":
-    player_1_words.append(word)
-  if player == "player_2":
-    player_2_words.append(word)
+# print word outcome
+def print_message(player_words, word_score):
+    print("Your word was " + player_words[-1])
+    print("You scored " + word_score + "for this word.\n")
 
 # funcion to find scores for each player
 player_words = {"player_1": player_1_words, "player_2": player_2_words}
@@ -68,5 +100,17 @@ for player, words in player_words.items():
   player_to_points[player] = player_points
 print(player_to_points)
 
+def is_game_complete(remaining_letter_tiles):
+    if remaining_letter_tiles > 0:
+        return False
+    return True
+
+# GAME LOOP
+def run_game():
+  scores = {"player 1": 0, "player 2": 0}
+  player_words = {"player_1": player_1_words, "player_2": player_2_words}
+  
+  while is_game_complete(remaining_letter_tiles):
+    fill_player_tiles(player_1_letters, remaining_letter_tiles)
 
 
