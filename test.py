@@ -35,21 +35,20 @@ def get_player_input():
     return player_input.upper()
 
 # validate player input - checked against their available letter tiles
-def validate_word(player_letters, word):
+def is_valid_word(player_letters, word):
    word_characters = [*word]
+   print(len(word_characters))
+   # check if word is correct length
+   if len(word_characters) < 2 or len(word_characters) > 7:
+      print("invalid word length. Word must be between 2 and 7 letters long.")
+      return False
    #compare word characters with player letters
    check_letters = all(item in player_letters for item in word_characters)
-   return check_letters
+   if check_letters == False:
+    print("Invalid letter selection. Your played word contains one or more letters that you do not have.")
+    return False
+   return True
 
-#convert guessed word to score
-# def score_word(word):
-#   word_characters = [*word]
-#   point_total = 0
-#   for letter in word_characters:
-#     point_total += letter_points.get(letter, 0)
-#   if len(word_characters) == 7:
-#      point_total += 50
-#   return point_total
 
 # test calls of functions
 fill_player_tiles(player_1_letters, remaining_letter_tiles)
@@ -58,5 +57,5 @@ print(len(remaining_letter_tiles))
 
 player_1_word = get_player_input()
 print(player_1_word)
-is_valid = validate_word(player_1_letters, player_1_word)
+is_valid = is_valid_word(player_1_letters, player_1_word)
 print(is_valid)
