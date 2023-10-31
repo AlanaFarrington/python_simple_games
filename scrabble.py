@@ -26,65 +26,66 @@ remaining_letter_tiles = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B",
 print(letter_points)
 
 #set players letter tiles and played words as empty lists
+player_1 = input("Player 1, what is your name? ")
+player_2 = input("Player 2, what is your name? ")
 player_1_letters = []
-player_2_letters = []
-player_1_words = []
-player_2_words = []
+player_letters = {player_1: [], player_2: []}
+player_words = {player_1: [], player_2: []}
 
-# fill player tiles rack with 7 random letter tiles from the 100 tiles which are then removed from the remaining tiles list
-# TESTED
-def fill_player_tiles(player_letters, remaining_letter_tiles):
-  while len(player_letters) < 7:
-    select_random_tile = random.randint(0,len(remaining_letter_tiles))
-    print(select_random_tile)
-    player_letters.append(remaining_letter_tiles[select_random_tile])
+# fill player tiles rack with 7 random letter tiles from the 100 tiles which are then removed from the remaining tiles list - TESTED
+def fill_player_tiles(player):
+  while len(player_letters[player]) < 7:
+    select_random_tile = random.randint(0,(len(remaining_letter_tiles) - 1))
+    player_letters[player].append(remaining_letter_tiles[select_random_tile])
     # remove used letter from remaining_letter_tiles list
     del remaining_letter_tiles[select_random_tile]
     continue
-  return player_letters
 
-# print player letter list
-# TESTED
+# print player letter list - TESTED
 def print_letter_list(player, player_letters):
-   print(player + ", your letters are:\n")
-   print(player_letters)
+   print(player + ", your letters are:")
+   print(player_letters[player])
 
-# get player input
-# TESTED
+# get player input - TESTED
 def get_player_input():
     player_input = input("What is your word to play? ")
+    print("Your word was " + (player_input.upper()) + ".")
     return player_input.upper()
 
 # validate player input - checked against their available letter tiles
 def is_valid_word(player_letters, word):
    word_characters = [*word]
-   print(len(word_characters))
-   # check if word is correct length
+   # check if word is correct length - TESTED
    if len(word_characters) < 2 or len(word_characters) > 7:
-      print("invalid word length. Word must be between 2 and 7 letters long.")
+      print("Invalid word length. Word must be between 2 and 7 letters long.")
       return False
    #compare word characters with player letters
+   # MUST FIX!!!!!!
+   # need to account for player using a letter twice that they only have 1 of
    check_letters = all(item in player_letters for item in word_characters)
    if check_letters == False:
     print("Invalid letter selection. Your played word contains one or more letters that you do not have.")
     return False
-   # check against dictionary 
+   # validate real word (find dictionary module/scraper) - need to be a separate function??
    return True
 
-# add their played word to player word list
-def update_player_word_list(word):
-  if player == "player_1":
-   player_1_words.append(word)
-  if player == "player_2":
-   player_2_words.append(word)
+# add their played word to player word list - tested
+def update_player_word_list(player, word):
+  if player == player_1:
+   player_words[player_1].append(word)
+  if player == player_2:
+   player_words[player_2].append(word)
 
-# validate real word (find dictionary module/scraper)
-def validate_word(word):
-  # check against dictionary
-  return
+# update players letter tile list after word has been played - TESTED
+def update_player_letter_list(valid_word, player, word):
+   if valid_word == True:
+      for letter in [*word]:
+         player_letters[player].remove(letter)
+   # replace used letter with new letters
+   fill_player_tiles(player)
+   print(player_letters)
 
-#convert guessed word to score
-# TESTED
+#convert guessed word to score - TESTED
 def score_word(word):
   word_characters = [*word]
   point_total = 0
@@ -100,7 +101,7 @@ def print_message(player_words, word_score):
     print("You scored " + word_score + "for this word.\n")
 
 # funcion to find scores for each player
-player_words = {"player_1": player_1_words, "player_2": player_2_words}
+player_words = {player_1: player_1_words, player_2: player_2_words}
 player_to_points = {}
 for player, words in player_words.items():
   player_points = 0
@@ -117,9 +118,10 @@ def is_game_complete(remaining_letter_tiles):
 # GAME LOOP
 def run_game():
   scores = {"player 1": 0, "player 2": 0}
-  player_words = {"player_1": player_1_words, "player_2": player_2_words}
+  player_words = {player_1: player_1_words, player_2: player_2_words}
+  turns_played = {player_1: 0, player_2: 0}
   
   while is_game_complete(remaining_letter_tiles):
-    fill_player_tiles(player_1_letters, remaining_letter_tiles)
+    fill_player_tiles(player_1)
 
 
