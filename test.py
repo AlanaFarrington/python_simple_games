@@ -34,23 +34,22 @@ def get_player_input():
     return player_input.upper()
 
 # validate player input - checked against their available letter tiles
-def is_valid_word(player, word):
+def validate_word(player, word):
    word_characters = [*word]
-   copy_player_letters = player_letters[player]
    # check if word is correct length - TESTED
    if len(word_characters) < 2 or len(word_characters) > 7:
       print("Invalid word length. Word must be between 2 and 7 letters long.")
       return False
    #compare word characters with player letters
-   # MUST FIX!!!!!!
-   # need to account for player using a letter twice that they only have 1 of
    check_letters = all(item in player_letters[player] for item in word_characters)
    if check_letters == False:
     print("Invalid letter selection. Your played word contains one or more letters that you do not have.")
     return False
-   for letter in [*word]:
-         copy_player_letters.remove(letter)
-         print(copy_player_letters)
+   # need to account for player using more copies of a letter than they have
+   for letter in word_characters:
+      if word_characters.count(letter) > player_letters[player].count(letter):
+        print("Invalid letter selection. Your played word contains more " + letter + "s than you have.")
+        return False
    # validate real word (find dictionary module/scraper) - need to be a separate function??
    return True
 
@@ -58,4 +57,4 @@ def is_valid_word(player, word):
 fill_player_tiles(player_1)
 print_letter_list(player_1)
 player_1_word = get_player_input()
-is_valid = is_valid_word(player_1, player_1_word)
+is_valid = validate_word(player_1, player_1_word)
