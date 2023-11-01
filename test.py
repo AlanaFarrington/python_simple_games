@@ -33,18 +33,29 @@ def get_player_input():
     print("Your word was " + (player_input.upper()) + ".")
     return player_input.upper()
 
-# update players letter tile list after word has been played - TESTED
-def update_player_letter_list(valid_word, player, word):
-   if valid_word == True:
-      for letter in [*word]:
-         player_letters[player].remove(letter)
-   # replace used letter with new letters
-   fill_player_tiles(player)
+# validate player input - checked against their available letter tiles
+def is_valid_word(player, word):
+   word_characters = [*word]
+   copy_player_letters = player_letters[player]
+   # check if word is correct length - TESTED
+   if len(word_characters) < 2 or len(word_characters) > 7:
+      print("Invalid word length. Word must be between 2 and 7 letters long.")
+      return False
+   #compare word characters with player letters
+   # MUST FIX!!!!!!
+   # need to account for player using a letter twice that they only have 1 of
+   check_letters = all(item in player_letters[player] for item in word_characters)
+   if check_letters == False:
+    print("Invalid letter selection. Your played word contains one or more letters that you do not have.")
+    return False
+   for letter in [*word]:
+         copy_player_letters.remove(letter)
+         print(copy_player_letters)
+   # validate real word (find dictionary module/scraper) - need to be a separate function??
+   return True
 
 # test calls of functions
 fill_player_tiles(player_1)
 print_letter_list(player_1)
 player_1_word = get_player_input()
-#print(player_1_word)
-is_valid = True
-update_player_letter_list(is_valid, player_1, player_1_word)
+is_valid = is_valid_word(player_1, player_1_word)

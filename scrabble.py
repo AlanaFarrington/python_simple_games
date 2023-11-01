@@ -53,8 +53,9 @@ def get_player_input():
     return player_input.upper()
 
 # validate player input - checked against their available letter tiles
-def is_valid_word(player_letters, word):
+def is_valid_word(player, word):
    word_characters = [*word]
+   copy_player_letters = player_letters[player]
    # check if word is correct length - TESTED
    if len(word_characters) < 2 or len(word_characters) > 7:
       print("Invalid word length. Word must be between 2 and 7 letters long.")
@@ -62,7 +63,7 @@ def is_valid_word(player_letters, word):
    #compare word characters with player letters
    # MUST FIX!!!!!!
    # need to account for player using a letter twice that they only have 1 of
-   check_letters = all(item in player_letters for item in word_characters)
+   check_letters = all(item in player_letters[player] for item in word_characters)
    if check_letters == False:
     print("Invalid letter selection. Your played word contains one or more letters that you do not have.")
     return False
@@ -101,7 +102,7 @@ def print_message(player_words, word_score):
     print("You scored " + word_score + "for this word.\n")
 
 # funcion to find scores for each player
-player_words = {player_1: player_1_words, player_2: player_2_words}
+player_words = {player_1: [], player_2: []}
 player_to_points = {}
 for player, words in player_words.items():
   player_points = 0
