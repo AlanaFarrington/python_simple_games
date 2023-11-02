@@ -26,11 +26,16 @@ remaining_letter_tiles = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B",
 print(letter_points)
 
 #set players letter tiles and played words as empty lists
-player_1 = input("Player 1, what is your name? ")
-player_2 = input("Player 2, what is your name? ")
-player_1_letters = []
-player_letters = {player_1: [], player_2: []}
-player_words = {player_1: [], player_2: []}
+# player_1 = input("Player 1, what is your name? ")
+# player_2 = input("Player 2, what is your name? ")
+# player_letters = {player_1: [], player_2: []}
+#player_words = {player_1: [], player_2: []}
+
+# game loop logic 
+def is_game_complete(remaining_letter_tiles):
+    if remaining_letter_tiles > 0:
+        return False
+    return True
 
 # fill player tiles rack with 7 random letter tiles from the 100 tiles which are then removed from the remaining tiles list - TESTED
 def fill_player_tiles(player):
@@ -113,18 +118,47 @@ for player, words in player_words.items():
   player_to_points[player] = player_points
 print(player_to_points)
 
-def is_game_complete(remaining_letter_tiles):
-    if remaining_letter_tiles > 0:
-        return False
-    return True
+# change current player
+def update_current_player():
+   if turns_played[player_1] > turns_played[player_2]:
+       current_player = player_2
+       #print("Current player is now player 2")
+       return current_player
+   if turns_played[player_1] == turns_played[player_2]:
+       current_player = player_1
+       #print("Current player is now player 1")
+       return current_player
+   
 
 # GAME LOOP
 def run_game():
+  player_letters = {player_1: [], player_2: []}
   scores = {"player 1": 0, "player 2": 0}
-  player_words = {player_1: player_1_words, player_2: player_2_words}
+  player_words = {player_1: [], player_2: []}
   turns_played = {player_1: 0, player_2: 0}
+  player_1 = input("Player 1, what is your name? ")
+  player_2 = input("Player 2, what is your name? ")
   
   while is_game_complete(remaining_letter_tiles):
-    fill_player_tiles(player_1)
+    current_player = player_1
+    fill_player_tiles(current_player)
 
+    # begin incrementing turns
+    turns_played[current_player] += 1
+
+    # print players letter tile list
+    print_letter_list(current_player)
+
+    # take player input
+
+    # validate word
+
+    # score word and update player score
+
+    # update player word list
+
+    # change player
+    current_player = update_current_player()
+
+    # update player letters
 
