@@ -86,7 +86,7 @@ def update_player_letter_list(valid_word, player, word):
          player_letters[player].remove(letter)
    # replace used letter with new letters
    fill_player_tiles(player)
-   print(player_letters)
+   #print(player_letters)
 
 #convert guessed word to score - TESTED
 def score_word(word):

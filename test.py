@@ -53,8 +53,18 @@ def validate_word(player, word):
    # validate real word (find dictionary module/scraper) - need to be a separate function??
    return True
 
+# update players letter tile list after word has been played - TESTED
+def update_player_letter_list(valid_word, player, word):
+   if valid_word == True:
+      for letter in [*word]:
+         player_letters[player].remove(letter)
+   # replace used letter with new letters
+   fill_player_tiles(player)
+   #print(player_letters)
+
 # test calls of functions
 fill_player_tiles(player_1)
 print_letter_list(player_1)
 player_1_word = get_player_input()
 is_valid = validate_word(player_1, player_1_word)
+update_player_letter_list(is_valid, player_1, player_1_word)
