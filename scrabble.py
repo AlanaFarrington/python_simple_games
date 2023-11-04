@@ -23,7 +23,7 @@ letter_points = {key:value for key, value in zip(letters, points)}
 
 # make list of remaining letter tiles
 remaining_letter_tiles = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "C", "C", "D", "D", "D", "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "F", "F", "G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "I", "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N", "O", "O", "O", "O", "O", "O", "O", "O", "P", "P", "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S", "T", "T", "T", "T", "T", "T", "U", "U", "U", "U", "V", "V", "W", "W", "X", "Y", "Y", "Z", " ", " "]
-print(letter_points)
+#print(letter_points)
 
 #set players letter tiles and played words as empty lists
 # player_1 = input("Player 1, what is your name? ")
@@ -56,6 +56,15 @@ def get_player_input():
     player_input = input("What is your word to play? ")
     print("Your word was " + (player_input.upper()) + ".")
     return player_input.upper()
+
+# swap function - incomplete and needs to be added to validation function
+def swap_tiles(player):
+   want_to_swap = input("Type all the tiles that you wish to swap. ")
+   letters_to_swap = [*want_to_swap.upper]
+   for letter in letters_to_swap.upper:
+      player_letters[player].remove(letter)
+   fill_player_tiles(player)
+      
 
 # validate player input - checked against their available letter tiles
 def validate_word(player, word):
