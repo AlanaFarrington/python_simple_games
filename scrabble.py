@@ -58,13 +58,11 @@ def get_player_input():
     return player_input.upper()
 
 # swap function - incomplete and needs to be added to validation function
-def swap_tiles(player):
-   want_to_swap = input("Type all the tiles that you wish to swap. ")
-   letters_to_swap = [*want_to_swap.upper]
-   for letter in letters_to_swap.upper:
+def swap_tiles(upper_want_to_swap, player):
+   letters_to_swap = [*upper_want_to_swap]
+   for letter in letters_to_swap:
       player_letters[player].remove(letter)
    fill_player_tiles(player)
-      
 
 # validate player input - checked against their available letter tiles
 def validate_word(player, word):
@@ -75,6 +73,11 @@ def validate_word(player, word):
       return False
    #compare word characters with player letters
    check_letters = all(item in player_letters[player] for item in word_characters)
+   if check_letters == False and word == "SWAP":
+    want_to_swap = input("Type all of the letters that you wish to swap. ")
+    upper_want_to_swap = want_to_swap.upper()
+    swap_tiles(upper_want_to_swap, player)
+    return False
    if check_letters == False:
     print("Invalid letter selection. Your played word contains one or more letters that you do not have.")
     return False
