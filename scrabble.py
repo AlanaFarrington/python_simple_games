@@ -63,25 +63,28 @@ def swap_tiles(upper_want_to_swap, player):
    check_letters = all(item in player_letters[player] for item in letters_to_swap)
    if check_letters == False:
       print("Invalid letter selection. Your letters to swap contains one or more letters that you do not have.")
-   for letter in letters_to_swap:
-      player_letters[player].remove(letter)
-   fill_player_tiles(player)
+      return False
+   if check_letters == True:
+      for letter in letters_to_swap:
+         player_letters[player].remove(letter)
+      fill_player_tiles(player)
+      return True
 
-# validate player input - checked against their available letter tiles
 def validate_word(player, word):
    word_characters = [*word]
    # check if word is correct length - TESTED
    if len(word_characters) < 2 or len(word_characters) > 7:
       print("Invalid word length. Word must be between 2 and 7 letters long.")
       return False
-   # if player types swap, check if they have those letters, if not, enter the swap function
+   #compare word characters with player letters
    check_letters = all(item in player_letters[player] for item in word_characters)
    if check_letters == False and word == "SWAP":
-    want_to_swap = input("Type all of the letters that you wish to swap. Do not leave spaces betweenn the letters. ")
-    upper_want_to_swap = want_to_swap.upper()
-    swap_tiles(upper_want_to_swap, player)
+    swap_complete = False
+    while swap_complete == False:
+       want_to_swap = input("Type all of the letters that you wish to swap. Do not leave spaces between letters. ")
+       upper_want_to_swap = want_to_swap.upper()
+       swap_complete = swap_tiles(upper_want_to_swap, player)
     return False
-   #compare word characters with player letters
    if check_letters == False:
     print("Invalid letter selection. Your played word contains one or more letters that you do not have.")
     return False

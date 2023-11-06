@@ -10,7 +10,7 @@ remaining_letter_tiles = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B",
 
 player_1 = "Alana"
 player_2 = "Will"
-player_letters = {player_1: ["S", "A", "E", "W", "P"], player_2: ["B", "N", "P", "E", "R", "S", "E"]}
+player_letters = {player_1: ["S", "A", "E"], player_2: ["B", "N", "P", "E", "R", "S", "E"]}
 player_words = {player_1: ["SEA"], player_2: ["BROWNIE"]}
 current_player = player_1
 turns_played = {player_1: 0, player_2: 0}
@@ -42,9 +42,15 @@ def update_player_letter_list(valid_word, player, word):
 
 def swap_tiles(upper_want_to_swap, player):
    letters_to_swap = [*upper_want_to_swap]
-   for letter in letters_to_swap:
-      player_letters[player].remove(letter)
-   fill_player_tiles(player)
+   check_letters = all(item in player_letters[player] for item in letters_to_swap)
+   if check_letters == False:
+      print("Invalid letter selection. Your letters to swap contains one or more letters that you do not have.")
+      return False
+   if check_letters == True:
+      for letter in letters_to_swap:
+         player_letters[player].remove(letter)
+      fill_player_tiles(player)
+      return True
 
 def validate_word(player, word):
    word_characters = [*word]
@@ -55,9 +61,11 @@ def validate_word(player, word):
    #compare word characters with player letters
    check_letters = all(item in player_letters[player] for item in word_characters)
    if check_letters == False and word == "SWAP":
-    want_to_swap = input("Type all of the letters that you wish to swap. ")
-    upper_want_to_swap = want_to_swap.upper()
-    swap_tiles(upper_want_to_swap, player)
+    swap_complete = False
+    while swap_complete == False:
+       want_to_swap = input("Type all of the letters that you wish to swap. Do not leave spaces between letters. ")
+       upper_want_to_swap = want_to_swap.upper()
+       swap_complete = swap_tiles(upper_want_to_swap, player)
     return False
    if check_letters == False:
     print("Invalid letter selection. Your played word contains one or more letters that you do not have.")
@@ -75,4 +83,4 @@ fill_player_tiles(player_1)
 print_letter_list(player_1)
 player_1_word = get_player_input()
 is_valid = validate_word(player_1, player_1_word)
-update_player_letter_list(is_valid, player_1, player_1_word)
+print_letter_list(player_1)
