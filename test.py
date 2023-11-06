@@ -10,7 +10,7 @@ remaining_letter_tiles = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B",
 
 player_1 = "Alana"
 player_2 = "Will"
-player_letters = {player_1: ["S", "A", "E"], player_2: ["B", "N", "P", "E", "R", "S", "E"]}
+player_letters = {player_1: ["S", "A", "E", "W", "P"], player_2: ["B", "N", "P", "E", "R", "S", "E"]}
 player_words = {player_1: ["SEA"], player_2: ["BROWNIE"]}
 current_player = player_1
 turns_played = {player_1: 0, player_2: 0}
